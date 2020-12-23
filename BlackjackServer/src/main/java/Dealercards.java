@@ -6,7 +6,12 @@ public class Dealercards {
     public int Timer;
 
 
+<<<<<<< HEAD
 
+=======
+//test Dirk
+    // test Jorn
+>>>>>>> Logic
 
 
 
