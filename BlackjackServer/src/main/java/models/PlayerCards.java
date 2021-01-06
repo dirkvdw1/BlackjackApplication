@@ -1,5 +1,7 @@
+package models;
+
 import Enums.Suit;
-import javafx.scene.text.Text;
+import models.Card;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ public class PlayerCards {
     public boolean finished;
     private int aces;
     private String message;
+//    private int Playerid; //??
 
 
     public void takeCard(Card card) {

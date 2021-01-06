@@ -1,10 +1,16 @@
+import models.Dealercards;
+import models.PlayerCards;
+import models.Stock;
+import models.Table;
+
 import java.util.List;
 
-public class Logic {
+public class Logic implements IblackjackServer {
 
     private List<PlayerCards> players;
     private Dealercards dealer;
     private Stock stock;
+
 
     public Table startNewGame(List<PlayerCards> playerList, Dealercards dealer){
         for(PlayerCards p : playerList){
@@ -15,6 +21,7 @@ public class Logic {
         dealer.takeCard(stock.drawCard());
         return new Table(players,dealer);
     }
+
     public PlayerCards hitHand(PlayerCards player){
         player.takeCard(stock.drawCard());
         if(player.getCardvalue() > 21){
@@ -51,13 +58,13 @@ public class Logic {
 
 
 
-    public boolean ready() {
-        for (PlayerCards player : players) {
-            if (player.getFinished() == false) {
-                return false;
-            }
-        }
-        dealer.Takecards();
-        return true;
-    }
+//    public boolean ready() {
+//        for (models.PlayerCards player : players) {
+//            if (player.getFinished() == false) {
+//                return false;
+//            }
+//        }
+//        dealer.Takecards();
+//        return true;
+//    }
 }

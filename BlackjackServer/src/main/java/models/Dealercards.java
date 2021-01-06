@@ -1,8 +1,11 @@
-import Enums.Suit;
+package models;
+
+import models.Card;
+import models.Stock;
 
 import java.util.List;
 
-public class Dealercards extends  PlayerCards {
+public class Dealercards extends PlayerCards {
     public List<Card> cards;
     public int value;
     public int Timer;

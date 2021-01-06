@@ -1,6 +1,8 @@
+package models;
+
 import Enums.Facename;
 import Enums.Suit;
-
+import models.Card;
 
 
 public class Stock {

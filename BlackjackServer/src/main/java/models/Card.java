@@ -1,3 +1,5 @@
+package models;
+
 import Enums.Facename;
 import Enums.Suit;
 
