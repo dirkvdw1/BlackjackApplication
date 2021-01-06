@@ -34,8 +34,7 @@ public class JavaFX extends Application {
     private HBox playerCards = new HBox(20);
 
     private Parent createContent() {
-        dealer = null;//new Hand(dealerCards.getChildren());
-        player = null;//new Hand(playerCards.getChildren());
+
 
         Pane root = new Pane();
         root.setPrefSize(800, 600);
@@ -60,7 +59,7 @@ public class JavaFX extends Application {
         leftVBox.setAlignment(Pos.TOP_CENTER);
 
         Text dealerScore = new Text("Dealer: ");
-        Text playerScore = new Text("Player: ");
+        Text playerScore = new Text("Players: ");
 
         leftVBox.getChildren().addAll(dealerScore, dealerCards, message, playerCards, playerScore);
 

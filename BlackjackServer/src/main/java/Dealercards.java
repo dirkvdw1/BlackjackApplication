@@ -1,17 +1,19 @@
+import Enums.Suit;
+
 import java.util.List;
 
-public class Dealercards {
+public class Dealercards extends  PlayerCards {
     public List<Card> cards;
     public int value;
     public int Timer;
+    private Stock stock;
 
-
-<<<<<<< HEAD
-
-=======
-//test Dirk
-    // test Jorn
->>>>>>> Logic
+    public void Takecards(){
+        while(value <= 17){
+            takeCard(stock.drawCard());
+        }
+        stock.refill();
+    }
 
 
 
