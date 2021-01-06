@@ -19,6 +19,18 @@ public class Logic {
         return null;
     }
 
+    public PlayerCards standHand(PlayerCards player){
+        return null;}
+
+    public Dealercards startDealer(Dealercards dealer){
+        return null;}
+
+    public Table endGame(){
+        return null;
+    }
+
+
+
 
     public boolean ready() {
         for (PlayerCards player : players) {
