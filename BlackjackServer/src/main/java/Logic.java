@@ -25,7 +25,8 @@ public class Logic {
     
 
     public PlayerCards standHand(PlayerCards player){
-        return null;}
+        player.setMessage("Stands on" + player.getCardvalue());
+        return player;}
 
     public Dealercards startDealer(Dealercards dealer){
         return null;}
