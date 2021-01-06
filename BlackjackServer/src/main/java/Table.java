@@ -3,26 +3,16 @@ import javafx.collections.ObservableList;
 import java.util.List;
 
 
-public class Table {
+public class Table  {
 
     private List<PlayerCards> players;
     private Dealercards dealer;
 
-
-    public Table(List<PlayerCards> players) {
-        players = players;
-        this.dealer = new Dealercards();
+    public Table(List<PlayerCards> players,Dealercards dealer) {
+        this.players = players;
+        this.dealer = dealer;
     }
 
-    public boolean ready() {
-        for (PlayerCards player : players) {
-            if (player.getFinished() == false) {
-                return false;
-            }
-        }
-        dealer.Takecards();
-        return true;
-    }
 }
 
 

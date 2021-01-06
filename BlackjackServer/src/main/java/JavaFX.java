@@ -96,7 +96,7 @@ public class JavaFX extends Application {
       //  playerScore.textProperty().bind(new SimpleStringProperty("Player: ").concat(player.valueProperty().asString()));
        // dealerScore.textProperty().bind(new SimpleStringProperty("Dealer: ").concat(dealer.valueProperty().asString()));
 
-//        player.valueProperty().addListener((obs, old, newValue) -> {
+//       player.valueProperty().addListener((obs, old, newValue) -> {
 //            if (/*newValue.intValue() */0>= 21) {
 //                endGame();
 //            }
@@ -133,15 +133,6 @@ public class JavaFX extends Application {
         playable.set(true);
         message.setText("");
 
-       // deck.refill();
-
-      //  dealer.reset();
-       // player.reset();
-
-       // dealer.takeCard(deck.drawCard());
-       // dealer.takeCard(deck.drawCard());
-       // player.takeCard(deck.drawCard());
-      //  player.takeCard(deck.drawCard());
     }
 
     private void endGame() {
