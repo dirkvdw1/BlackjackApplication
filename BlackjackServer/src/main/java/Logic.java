@@ -15,10 +15,14 @@ public class Logic {
         dealer.takeCard(stock.drawCard());
         return new Table(players,dealer);
     }
-    public Player Hithand(PlayerCards player){
-        return null;
+    public PlayerCards hitHand(PlayerCards player){
+        player.takeCard(stock.drawCard());
+        if(player.getCardvalue() > 21){
+            player.setMessage("Busted");
+        }
+        return player;
     }
-
+    
 
     public boolean ready() {
         for (PlayerCards player : players) {

@@ -1,4 +1,5 @@
 import Enums.Suit;
+import javafx.scene.text.Text;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ public class PlayerCards {
     public int betvalue;
     public boolean finished;
     private int aces;
+    private String message;
 
 
     public void takeCard(Card card) {
@@ -33,6 +35,13 @@ public class PlayerCards {
         betvalue = 0;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public boolean getFinished() {
         return finished;
