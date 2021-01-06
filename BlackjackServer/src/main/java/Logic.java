@@ -27,11 +27,24 @@ public class Logic {
     public PlayerCards standHand(PlayerCards player){
         return null;}
 
-    public Dealercards startDealer(Dealercards dealer){
-        return null;}
+    public Dealercards startDealer(Dealercards dealer) {
+        dealer.TakecardsFordealer();
+            return dealer;
+    }
 
-    public Table endGame(){
-        return null;
+    public Table endGame(List<PlayerCards> players,Dealercards dealer){
+        for(PlayerCards p: players){
+            if(p.getCardvalue() > dealer.getValue() && p.getCardvalue() <= 21){
+                p.setMessage("Winner");
+            }
+            else if(p.getCardvalue() == dealer.getCardvalue() && p.getCardvalue() < 21){
+                p.setMessage("Draw");
+            }
+            else{
+                p.setMessage("Lost");
+            }
+        }
+        return new Table(players,dealer);
     }
 
 

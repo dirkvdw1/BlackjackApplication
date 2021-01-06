@@ -8,7 +8,8 @@ public class Dealercards extends  PlayerCards {
     public int Timer;
     private Stock stock;
 
-    public void Takecards(){
+
+    public void TakecardsFordealer(){
         while(value <= 17){
             takeCard(stock.drawCard());
         }
