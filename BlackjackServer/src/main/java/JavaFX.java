@@ -1,5 +1,6 @@
 import javafx.application.Application;
         import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
         import javafx.geometry.Pos;
         import javafx.scene.Parent;
@@ -15,6 +16,7 @@ import javafx.geometry.Insets;
         import javafx.scene.shape.Rectangle;
         import javafx.scene.text.Text;
         import javafx.stage.Stage;
+import models.PlayerCards;
 import models.Stock;
 
 /**
@@ -25,13 +27,13 @@ import models.Stock;
 public class JavaFX extends Application {
 
     private Stock deck = new Stock();
-    private Player dealer, player;
+    private PlayerCards player, dealer;
     private Text message = new Text();
 
     private SimpleBooleanProperty playable = new SimpleBooleanProperty(false);
 
-    private HBox dealerCards = new HBox(20);
-    private HBox playerCards = new HBox(20);
+    private HBox Box2 = new HBox(20);
+    private HBox Box1 = new HBox(20);
 
     private Parent createContent() {
 
@@ -61,7 +63,7 @@ public class JavaFX extends Application {
         Text dealerScore = new Text("Dealer: ");
         Text playerScore = new Text("Players: ");
 
-        leftVBox.getChildren().addAll(dealerScore, dealerCards, message, playerCards, playerScore);
+        leftVBox.getChildren().addAll(dealerScore, Box1, message, Box2, playerScore);
 
         // RIGHT
 
@@ -93,20 +95,20 @@ public class JavaFX extends Application {
         btnHit.disableProperty().bind(playable.not());
         btnStand.disableProperty().bind(playable.not());
 
-      //  playerScore.textProperty().bind(new SimpleStringProperty("Player: ").concat(player.valueProperty().asString()));
-       // dealerScore.textProperty().bind(new SimpleStringProperty("Dealer: ").concat(dealer.valueProperty().asString()));
+       // playerScore.textProperty().bind(new SimpleStringProperty("Player: ").concat(player.getCardvalue()));
+        //dealerScore.textProperty().bind(new SimpleStringProperty("Dealer: ").concat(dealer.getCardvalue()));
 
-//       player.valueProperty().addListener((obs, old, newValue) -> {
-//            if (/*newValue.intValue() */0>= 21) {
-//                endGame();
-//            }
-//        });
-//
-//        dealer.valueProperty().addListener((obs, old, newValue) -> {
-//            if (/*newValue.intValue()*/0 >= 21) {
-//                endGame();
-//            }
-//        });
+      // player.addListener((obs, old, newValue) -> {
+       //     if (/*newValue.intValue() */0>= 21) {
+       //         player.setMessage("busted");
+       //     }
+       // });
+
+   /*     dealer.valueProperty().addListener((obs, old, newValue) -> {
+            if (/*newValue.intValue()0 >= 21) {
+                endGame();
+            }
+        });*/
 
         // INIT BUTTONS
 
@@ -115,15 +117,12 @@ public class JavaFX extends Application {
         });
 
         btnHit.setOnAction(event -> {
-         //   player.takeCard(deck.drawCard());
+            player.takeCard(deck.drawCard());  //websockets
         });
 
         btnStand.setOnAction(event -> {
-            while (0/*dealer.valueProperty().get()*/ < 17) {
-                //dealer.takeCard(deck.drawCard());
-            }
-
-            //endGame();
+            dealer.getCards();
+            endGame();
         });
 
         return root;
@@ -138,8 +137,8 @@ public class JavaFX extends Application {
     private void endGame() {
         playable.set(false);
 
-        int dealerValue = 0;//dealer.valueProperty().get();
-        int playerValue = 0;//player.valueProperty().get();
+        int dealerValue = dealer.getCardvalue();
+        int playerValue = player.getCardvalue();
         String winner = "Exceptional case: d: " + dealerValue + " p: " + playerValue;
 
         // the order of checking is important
