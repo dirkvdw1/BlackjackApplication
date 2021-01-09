@@ -7,10 +7,11 @@ import java.util.List;
 
 public class Logic implements IblackjackServer {
 
-    private List<PlayerCards> players;
-    private Dealercards dealer;
     private Stock stock;
 
+    public Logic(){
+        stock = new Stock();
+    }
 
     public Table startNewGame(List<PlayerCards> playerList, Dealercards dealer){
         for(PlayerCards p : playerList){
@@ -19,7 +20,7 @@ public class Logic implements IblackjackServer {
         }
         dealer.takeCard(stock.drawCard());
         dealer.takeCard(stock.drawCard());
-        return new Table(players,dealer);
+        return new Table(playerList,dealer);
     }
 
     public PlayerCards hitHand(PlayerCards player){

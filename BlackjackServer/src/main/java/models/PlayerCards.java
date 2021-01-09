@@ -3,6 +3,7 @@ package models;
 import Enums.Suit;
 import models.Card;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerCards {
@@ -79,5 +80,11 @@ public class PlayerCards {
 
     public void setBetvalue(int betvalue) {
         this.betvalue = betvalue;
+    }
+    public PlayerCards(){
+        this.cards = new ArrayList<>();
+    }
+    public PlayerCards(int cardvalue){
+        this.cardvalue = cardvalue;
     }
 }

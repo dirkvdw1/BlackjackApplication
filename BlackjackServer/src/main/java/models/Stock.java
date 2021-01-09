@@ -10,6 +10,7 @@ public class Stock {
     int amount;
 
         public Stock() {
+            amount = 1;
             refill();
         }
 

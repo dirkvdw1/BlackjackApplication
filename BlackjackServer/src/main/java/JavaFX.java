@@ -134,7 +134,7 @@ public class JavaFX extends Application {
     private void startNewGame() {
         playable.set(true);
         message.setText("");
-        logic.startNewGame( ,dealer);
+        logic.startNewGame(null ,dealer);
     }
 
     private void endGame() {
