@@ -140,7 +140,7 @@ public class JavaFX extends Application {
     private void endGame() {
         playable.set(false);
 
-        int dealerValue = dealer.getCardvalue();
+        int dealerValue = dealer.getvalue();
         int playerValue = player.getCardvalue();
         String winner = "Exceptional case: d: " + dealerValue + " p: " + playerValue;
 
