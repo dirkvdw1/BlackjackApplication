@@ -63,7 +63,10 @@ public class PlayerCards {
     }
 
     public int getCardvalue() {
+        if(cardvalue != 0)
         return cardvalue;
+        else
+            return 0;
     }
 
     public void setCardvalue(int cardvalue) {

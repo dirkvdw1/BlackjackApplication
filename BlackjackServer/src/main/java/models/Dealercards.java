@@ -32,8 +32,11 @@ public class Dealercards extends PlayerCards {
         this.cards = cards;
     }
 
-    public int getValue() {
-        return value;
+    public int getvalue() {
+        if(cardvalue != 0)
+            return cardvalue;
+        else
+            return 0;
     }
 
     public void setValue(int value) {

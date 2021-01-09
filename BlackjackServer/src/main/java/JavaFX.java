@@ -16,6 +16,7 @@ import javafx.geometry.Insets;
         import javafx.scene.shape.Rectangle;
         import javafx.scene.text.Text;
         import javafx.stage.Stage;
+import models.Dealercards;
 import models.PlayerCards;
 import models.Stock;
 
@@ -27,8 +28,10 @@ import models.Stock;
 public class JavaFX extends Application {
 
     private Stock deck = new Stock();
-    private PlayerCards player, dealer;
+    private PlayerCards player;
+    private Dealercards dealer;
     private Text message = new Text();
+    private  Logic logic = new Logic();
 
     private SimpleBooleanProperty playable = new SimpleBooleanProperty(false);
 
@@ -95,8 +98,8 @@ public class JavaFX extends Application {
         btnHit.disableProperty().bind(playable.not());
         btnStand.disableProperty().bind(playable.not());
 
-       // playerScore.textProperty().bind(new SimpleStringProperty("Player: ").concat(player.getCardvalue()));
-        //dealerScore.textProperty().bind(new SimpleStringProperty("Dealer: ").concat(dealer.getCardvalue()));
+        playerScore.textProperty().bind(new SimpleStringProperty("Player: ").concat(player.getCardvalue()));
+        dealerScore.textProperty().bind(new SimpleStringProperty("Dealer: ").concat(dealer.getvalue()));
 
       // player.addListener((obs, old, newValue) -> {
        //     if (/*newValue.intValue() */0>= 21) {
@@ -131,7 +134,7 @@ public class JavaFX extends Application {
     private void startNewGame() {
         playable.set(true);
         message.setText("");
-
+        logic.startNewGame( ,dealer);
     }
 
     private void endGame() {
@@ -155,6 +158,8 @@ public class JavaFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        player = new PlayerCards();
+        dealer = new Dealercards();
         primaryStage.setScene(new Scene(createContent()));
         primaryStage.setWidth(800);
         primaryStage.setHeight(600);

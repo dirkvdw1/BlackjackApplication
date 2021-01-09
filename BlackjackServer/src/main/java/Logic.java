@@ -42,7 +42,7 @@ public class Logic implements IblackjackServer {
 
     public Table endGame(List<PlayerCards> players,Dealercards dealer){
         for(PlayerCards p: players){
-            if(p.getCardvalue() > dealer.getValue() && p.getCardvalue() <= 21){
+            if(p.getCardvalue() > dealer.getvalue() && p.getCardvalue() <= 21){
                 p.setMessage("Winner");
             }
             else if(p.getCardvalue() == dealer.getCardvalue() && p.getCardvalue() < 21){
