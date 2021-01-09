@@ -51,7 +51,7 @@ public class StartScreen extends Application {
 
         connectButton.setOnAction((event -> {
             GameContainer gameContainer = new GameContainer(primaryStage);
-            Client client = new Client(DrawMyThingClient.port, inputIP.getText(), gameContainer);
+            Client client = new Client(BlackjackClient.port, inputIP.getText(), gameContainer);
             gameContainer.setClient(client);
             new Thread(client).start();
         }));
