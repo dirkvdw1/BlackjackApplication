@@ -1,7 +1,8 @@
-import javafx.application.Application;
+
+        import javafx.application.Application;
         import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Insets;
+        import javafx.beans.property.SimpleStringProperty;
+        import javafx.geometry.Insets;
         import javafx.geometry.Pos;
         import javafx.scene.Parent;
         import javafx.scene.Scene;
@@ -16,9 +17,9 @@ import javafx.geometry.Insets;
         import javafx.scene.shape.Rectangle;
         import javafx.scene.text.Text;
         import javafx.stage.Stage;
-import models.Dealercards;
-import models.PlayerCards;
-import models.Stock;
+        import models.Dealercards;
+        import models.PlayerCards;
+        import models.Stock;
 
 /**
  * Game's logic and UI
