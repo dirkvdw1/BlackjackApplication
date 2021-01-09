@@ -1,5 +1,6 @@
 package Client;
 
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -30,7 +31,7 @@ public class StartScreen extends Application {
     public void start(Stage primaryStage) {
         if(replay){
             GameContainer gameContainer = new GameContainer(primaryStage);
-            Client client = new Client(DrawMyThingClient.port, ip, gameContainer);
+            Client client = new Client(BlackjackClient.port, ip, gameContainer);
             gameContainer.setClient(client);
             new Thread(client).start();
             return;
