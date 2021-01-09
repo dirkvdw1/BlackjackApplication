@@ -3,8 +3,8 @@ import models.PlayerCards;
 import models.Table;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,54 +13,50 @@ import java.util.List;
 class LogicTest {
 
     private Logic logicUnderTest;
+    private List<PlayerCards> playerlist;
+    private Dealercards dealer;
 
     @BeforeEach
     void setUp() {
         logicUnderTest = new Logic();
+        playerlist = new ArrayList<>();
+        dealer = new Dealercards();
     }
 
 
-    List<PlayerCards> Createlist() {
-        List<PlayerCards> list = new ArrayList<>();
-        list.add(new PlayerCards());
-        list.add(new PlayerCards());
-        return list;
+    void Createlist() {
+        playerlist.add(new PlayerCards());
+        playerlist.add(new PlayerCards());
     }
     @Test
     void testStartNewGame() {
-        // Setup
-        final List<PlayerCards> playerList = Createlist();
-        final Dealercards dealer = new Dealercards();
-
+        Createlist();
         // Run the test
-        final Table result = logicUnderTest.startNewGame(playerList, dealer);
+        final Table result = logicUnderTest.startNewGame(playerlist, dealer);
 
 
         // Verify the results
-        assertEquals(2,playerList.get(0).getCards().size());
+        assertEquals(2,playerlist.get(0).getCards().size());
         assertEquals(2,dealer.getCards().size());
 
     }
 
     @Test
-    void testHitHand() {
-        // Setup
-        final PlayerCards player = new PlayerCards();
+    void testHitHandIntegration() {
+
 
         // Run the test
-        final PlayerCards result = logicUnderTest.hitHand(player);
+        testStartNewGame();
+        final PlayerCards result = logicUnderTest.hitHand(playerlist.get(0));
 
         // Verify the results
-        assertEquals(1,result.getCards().size());
+        assertEquals(3,result.getCards().size());
     }
 
     @Test
     void testStandHand() {
-        // Setup
-        final PlayerCards player = new PlayerCards();
-
-        // Run the test
-        final PlayerCards result = logicUnderTest.standHand(player);
+        testStartNewGame();
+        final PlayerCards result = logicUnderTest.standHand(playerlist.get(1));
 
         // Verify the results
         assertNotNull(result.getMessage());
@@ -68,25 +64,32 @@ class LogicTest {
 
     @Test
     void testStartDealer() {
-        // Setup
-        final Dealercards dealer = new Dealercards();
-
-        // Run the test
+        testStartNewGame();
+        testHitHand();
         final Dealercards result = logicUnderTest.startDealer(dealer);
 
-        // Verify the results
-        
+        assertTrue(result.getvalue()  <= 17 );
+
+
     }
 
     @Test
     void testEndGame() {
         // Setup
-        final List<PlayerCards> players = Arrays.asList(new PlayerCards());
-        final Dealercards dealer = new Dealercards();
+        testStartNewGame();
+        testHitHand();
 
-        // Run the test
-        final Table result = logicUnderTest.endGame(players, dealer);
 
-        // Verify the results
+        final Table result = logicUnderTest.endGame(playerlist, dealer);
+
+
+
+    }
+    void testHitHand() {
+
+        final PlayerCards result = logicUnderTest.hitHand(playerlist.get(0));
+
+
+        assertEquals(3,result.getCards().size());
     }
 }

@@ -46,7 +46,7 @@ public class Logic implements IblackjackServer {
             if(p.getCardvalue() > dealer.getvalue() && p.getCardvalue() <= 21){
                 p.setMessage("Winner");
             }
-            else if(p.getCardvalue() == dealer.getCardvalue() && p.getCardvalue() < 21){
+            else if(p.getCardvalue() == dealer.getvalue() && p.getCardvalue() < 21){
                 p.setMessage("Draw");
             }
             else{
