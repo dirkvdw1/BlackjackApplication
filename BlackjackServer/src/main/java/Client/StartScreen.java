@@ -9,11 +9,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
+/**
+ * This class is used to show the start screen of the application,
+ * this screen will allow the user to put in the IP adress that he wants to connect to and press the play button to start the game.
+ */
 
 public class StartScreen extends Application {
-
-
 
     private boolean replay;
     private String ip;
@@ -49,7 +50,7 @@ public class StartScreen extends Application {
 
         connectButton.setOnAction((event -> {
             GameContainer gameContainer = new GameContainer(primaryStage);
-            Client client = new Client(BlackjackClient.port, inputIP.getText(), gameContainer);
+            Client client = new Client(DrawMyThingClient.port, inputIP.getText(), gameContainer);
             gameContainer.setClient(client);
             new Thread(client).start();
         }));
@@ -63,5 +64,4 @@ public class StartScreen extends Application {
         primaryStage.setScene(new Scene(mainPane));
         primaryStage.show();
     }
-
 }
