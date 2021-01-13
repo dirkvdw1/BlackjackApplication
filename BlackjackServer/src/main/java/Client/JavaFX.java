@@ -34,7 +34,7 @@ import javafx.application.Application;
  */
 public class JavaFX extends Application {
 
-            public static final int port = 8080;
+    public static final int port = 8080;
     private Stock deck = new Stock();
     private PlayerCards player;
     private Dealercards dealer;
@@ -42,10 +42,9 @@ public class JavaFX extends Application {
     private Logic logic = new Logic();
     private SimpleBooleanProperty playable = new SimpleBooleanProperty(false);
 
-          //  private ObservableList<Node> cards;
 
 
-            private HBox Box2 = new HBox(20);
+    private HBox Box2 = new HBox(20);
     private HBox Box1 = new HBox(20);
 
     private Parent createContent() {

@@ -1,10 +1,4 @@
 package Client;
-
-
-
-
-
-
 import javafx.geometry.Insets;
 
 import javafx.scene.Scene;
@@ -94,7 +88,7 @@ public class GameContainer {
     }
 
     private void initStartScreen() {
-       // this.updateGuess("Wachten op andere spelers!");
+        this.updateGuess("Wachten op andere spelers!");
         makeButtonStartEnd("Spel starten", Color.GREEN);
     }
     private void makeButtonStartEnd(String msg, Color color) {
@@ -145,13 +139,6 @@ public class GameContainer {
        // updateGuess("De server is gestopt!");
     }
 
-
-
-
-
-
-
-
     private void initHandlers() {
         canvas.setOnMouseDragged((event -> {
 //            if (yourTurn) {
@@ -190,7 +177,7 @@ public class GameContainer {
                         client.stop(false);
                         StartScreen startScreen = new StartScreen();
                         startScreen.setVar(false, "");
-                        startScreen.start(window);
+                        startScreen.start(window);               // hier komt de javafx game code in het window
                     }
                     else {
                         StartScreen startScreen = new StartScreen();
@@ -251,6 +238,13 @@ public class GameContainer {
 
     public String getDrawWord() {
         return drawWord;
+    }
+
+    private void updateGuess(String word) {
+        this.graphicsContext.clearRect(0, 0, canvas.getWidth() - 100, 90);
+        Text guess = new Text(word);
+        guess.setFont(impact);
+        this.getGraphicsContext().fillText(word, (canvas.getWidth() / 2.0) - (guess.getLayoutBounds().getWidth() / 2.0), 80);
     }
 
 
