@@ -10,21 +10,21 @@ import java.util.List;
 public class Dealercards {
     public List<Card> cards;
     public int value;
-    public int Timer;
     private Stock stock;
     private int aces;
 
-    public Dealercards(){
+    public Dealercards() {
         stock = new Stock();
         cards = new ArrayList<>();
     }
 
-    public void TakecardsFordealer(){
-        while(value <= 17){
-           takeCard(stock.drawCard());
+    public void TakecardsFordealer() {
+        while (value <= 17) {
+            takeCard(stock.drawCard());
         }
         //stock.refill();
     }
+
     public void takeCard(Card card) {
         cards.add(card);
 
@@ -33,17 +33,18 @@ public class Dealercards {
         }
 
         if (value + card.suit.getValue() > 21 && aces > 0) {
-            value = value + card.suit.getValue() -10;
+            value = value + card.suit.getValue() - 10;
             aces--;
-        }
-        else {
+        } else {
             value = value + card.suit.getValue();
         }
     }
 
-
-
-
+    public void reset() {
+        cards.clear();
+        value = 0;
+        aces = 0;
+    }
 
 
     public List<Card> getCards() {
@@ -55,7 +56,7 @@ public class Dealercards {
     }
 
     public int getvalue() {
-        if(value != 0)
+        if (value != 0)
             return value;
         else
             return 0;
@@ -65,11 +66,4 @@ public class Dealercards {
         this.value = value;
     }
 
-    public int getTimer() {
-        return Timer;
-    }
-
-    public void setTimer(int timer) {
-        Timer = timer;
-    }
 }

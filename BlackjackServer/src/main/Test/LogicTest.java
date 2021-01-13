@@ -1,3 +1,4 @@
+import Client.Logic;
 import models.Dealercards;
 import models.PlayerCards;
 import models.Table;
@@ -7,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 class LogicTest {
@@ -32,7 +32,7 @@ class LogicTest {
     void testStartNewGame() {
         Createlist();
         // Run the test
-        final Table result = logicUnderTest.startNewGame(playerlist, dealer);
+      //  final Table result = logicUnderTest.startNewGame(playerlist, dealer);
 
 
         // Verify the results

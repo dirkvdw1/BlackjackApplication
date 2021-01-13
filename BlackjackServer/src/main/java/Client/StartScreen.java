@@ -29,9 +29,9 @@ public class StartScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        if(replay){
+        if(replay){     //skipt ie in begin
             GameContainer gameContainer = new GameContainer(primaryStage);
-            Client client = new Client(BlackjackClient.port, ip, gameContainer);
+            Client client = new Client(JavaFX.port, ip, gameContainer);         //aan t eind van het spel
             gameContainer.setClient(client);
             new Thread(client).start();
             return;
@@ -41,7 +41,7 @@ public class StartScreen extends Application {
         Label ip = new Label("IP:");
         TextField inputIP = new TextField();
 
-        hBox.getChildren().addAll(ip, inputIP);
+        hBox.getChildren().addAll(ip, inputIP);                 //hier moet de inlog pagina
 
         VBox vBox = new VBox();
 
@@ -51,16 +51,16 @@ public class StartScreen extends Application {
 
         connectButton.setOnAction((event -> {
             GameContainer gameContainer = new GameContainer(primaryStage);
-            Client client = new Client(BlackjackClient.port, inputIP.getText(), gameContainer);
+            Client client = new Client(BlackjackClient.port, inputIP.getText(), gameContainer);     //Hier start het spel/
             gameContainer.setClient(client);
-            new Thread(client).start();
+            new Thread(client).start();     //start denk ik     //scherm van t wachten
         }));
 
         vBox.getChildren().addAll(hBox, connectButton);
 
         BorderPane mainPane = new BorderPane();
 
-        mainPane.setCenter(vBox);
+        mainPane.setCenter(vBox);               //kleine connectie scherm //ip enzo
 
         primaryStage.setScene(new Scene(mainPane));
         primaryStage.show();

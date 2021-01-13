@@ -1,3 +1,5 @@
+package models;
+
 import models.PlayerCards;
 
 import java.util.List;

@@ -38,7 +38,7 @@ public class LinkThread {
             while(running) {
                 try {
                     // Socket 1 objects -> Socket 2
-                    objectOutputStream2.writeObject(objectInputStream1.readObject());
+                    objectOutputStream2.writeObject(objectInputStream1.readObject());       //hier worden de beurten geregeld
                     objectOutputStream2.flush();
                 } catch (IOException | ClassNotFoundException e) {
                     setRunning(false);
@@ -50,7 +50,7 @@ public class LinkThread {
             while(running) {
                 try {
                     // Socket 2 objects -> Socket 1
-                    objectOutputStream1.writeObject(objectInputStream2.readObject());
+                    objectOutputStream1.writeObject(objectInputStream2.readObject());               //t zelfde
                     objectOutputStream1.flush();
                 } catch (IOException | ClassNotFoundException e) {
                     setRunning(false);

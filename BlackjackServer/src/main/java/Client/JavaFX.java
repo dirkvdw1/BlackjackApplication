@@ -1,9 +1,12 @@
+package Client;
 
-        import javafx.application.Application;
+import javafx.application.Application;
         import javafx.beans.property.SimpleBooleanProperty;
         import javafx.beans.property.SimpleStringProperty;
+        import javafx.collections.ObservableList;
         import javafx.geometry.Insets;
         import javafx.geometry.Pos;
+        import javafx.scene.Node;
         import javafx.scene.Parent;
         import javafx.scene.Scene;
         import javafx.scene.control.Button;
@@ -21,22 +24,28 @@
         import models.PlayerCards;
         import models.Stock;
 
-/**
+        import java.util.ArrayList;
+        import java.util.List;
+
+        /**
  * Game's logic and UI
  *
  * @author Almas Baimagambetov
  */
 public class JavaFX extends Application {
 
+            public static final int port = 8080;
     private Stock deck = new Stock();
     private PlayerCards player;
     private Dealercards dealer;
     private Text message = new Text();
-    private  Logic logic = new Logic();
-
+    private Logic logic = new Logic();
     private SimpleBooleanProperty playable = new SimpleBooleanProperty(false);
 
-    private HBox Box2 = new HBox(20);
+          //  private ObservableList<Node> cards;
+
+
+            private HBox Box2 = new HBox(20);
     private HBox Box1 = new HBox(20);
 
     private Parent createContent() {
@@ -102,17 +111,12 @@ public class JavaFX extends Application {
         playerScore.textProperty().bind(new SimpleStringProperty("Player: ").concat(player.getCardvalue()));
         dealerScore.textProperty().bind(new SimpleStringProperty("Dealer: ").concat(dealer.getvalue()));
 
-      // player.addListener((obs, old, newValue) -> {
-       //     if (/*newValue.intValue() */0>= 21) {
-       //         player.setMessage("busted");
-       //     }
-       // });
 
-   /*     dealer.valueProperty().addListener((obs, old, newValue) -> {
-            if (/*newValue.intValue()0 >= 21) {
-                endGame();
-            }
-        });*/
+//        dealer.valueProperty().addListener((obs, old, newValue) -> {
+//            if (newValue.intValue() >= 21) {
+//                endGame();
+//            }
+//        });
 
         // INIT BUTTONS
 
@@ -135,7 +139,9 @@ public class JavaFX extends Application {
     private void startNewGame() {
         playable.set(true);
         message.setText("");
-        logic.startNewGame(null ,dealer);
+        player.reset();
+        dealer.reset();
+        logic.startNewGame(player,dealer);
     }
 
     private void endGame() {

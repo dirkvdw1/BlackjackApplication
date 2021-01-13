@@ -53,10 +53,9 @@ public class GameContainer {
     /**
      * Call all the initializers.
      */
-    public void start() {
+    public void start() {       //start het spel
         this.initWindow();
         this.initStartScreen();
-
     }
 
     /**
@@ -91,6 +90,13 @@ public class GameContainer {
 
         this.window.setScene(new Scene(mainPane, 1200, 600));
         this.window.show();
+    }
+    public void setYourTurn(boolean yourTurn) {
+        this.yourTurn = yourTurn;
+
+
+        this.points++;
+        this.started = true;
     }
 
     /**
@@ -192,6 +198,99 @@ public class GameContainer {
         JsonArray jsonValues = jsonObject.getJsonArray("words");
         return jsonValues.get(new Random().nextInt(jsonValues.size() - 1)).toString();
     }
+    private void initHandlers() {
+        canvas.setOnMouseDragged((event -> {
+//            if (yourTurn) {
+//                if (event.getY() > 100) {
+//                    this.pen.update(event.getX(), event.getY());
+//                    this.pen.draw(graphicsContext);
+//                    this.client.sendPackage(this.pen);
+//                }
+//            }
+        }));
+
+        canvas.setOnMouseMoved((event -> {
+//            if (yourTurn) {
+//                if (event.getY() < 100) {
+//                    for (Button button : this.buttons) {
+//                        if (button.contains(new Point2D(event.getX(), event.getY())) && !button.isSelected()) {
+//                            button.clear(this.graphicsContext);
+//                            button.setHighlighted(true);
+//                            button.draw(this.graphicsContext);
+//                        } else if (button.isHighlighted() && !button.isSelected()) {
+//                            button.clear(this.graphicsContext);
+//                            button.setHighlighted(false);
+//                            button.draw(this.graphicsContext);
+//                        }
+//                    }
+//                }
+//            }
+        }));
+
+        canvas.setOnMouseClicked((event -> {
+            if (yourTurn) {
+
+
+                if (!started) {
+                    if (points == -1) {
+                        client.stop(false);
+                        StartScreen startScreen = new StartScreen();
+                        startScreen.setVar(false, "");
+                        startScreen.start(window);
+                    } else {
+                        StartScreen startScreen = new StartScreen();
+                        startScreen.setVar(true, this.client.getIp());
+                        startScreen.start(window);
+                    }
+                }
+            }
+        }));
+
+        canvas.setOnScroll((event -> {
+            if (yourTurn) {
+
+                this.graphicsContext.clearRect(700, 0, 96, 96);
+
+//                if (event.getDeltaY() < 40) {
+//                    if (this.pen.getWidth() > 4) {
+//                        this.pen.setWidth(this.pen.getWidth() - 2);
+//                    }
+//                } else {
+//                    if (this.pen.getWidth() < 90) {
+//                        this.pen.setWidth(this.pen.getWidth() + 2);
+//                    }
+//                }
+//
+//                this.graphicsContext.strokeOval(750 - (this.pen.getWidth() / 2.0),
+//                        50 - (this.pen.getWidth() / 2.0),
+//                        this.pen.getWidth(),
+//                        this.pen.getWidth());
+//            }
+            }
+        }));
+
+        window.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (!yourTurn && started) {
+                if (event.getCode() == KeyCode.BACK_SPACE && guessWord.length() != 0) {
+                    guessWord = guessWord.substring(0, guessWord.length() - 1);
+                    updateGuess(guessWord);
+                } else if (event.getCode() == KeyCode.ENTER && guessWord.length() > 0) {
+
+                    this.client.sendGuess(guessWord);
+
+                } else if (guessWord.length() < 15) {
+                    if (guessWord.length() > 0) {
+                        guessWord = guessWord + event.getText();
+                    } else {
+                        guessWord = event.getText();
+                    }
+                    updateGuess(guessWord);
+                }
+            }
+        });
+
+        window.setOnCloseRequest((event -> client.stop(true)));
+    }
 
     public String getDrawWord() {
         return drawWord;
@@ -203,3 +302,4 @@ public class GameContainer {
         return graphicsContext;
     }
 }
+

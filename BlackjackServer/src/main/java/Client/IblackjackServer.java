@@ -1,3 +1,5 @@
+package Client;
+
 import models.Dealercards;
 import models.PlayerCards;
 import models.Table;
@@ -6,7 +8,10 @@ import java.util.List;
 
 public interface IblackjackServer {
 
-    Table startNewGame(List<PlayerCards> playerList, Dealercards dealer);
+
+    PlayerCards startNewGame(PlayerCards player,Dealercards dealercards);
+
+    Dealercards GiveDealer2cards(Dealercards dealer);
 
     PlayerCards hitHand(PlayerCards player);
 

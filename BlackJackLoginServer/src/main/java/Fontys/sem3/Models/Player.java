@@ -24,6 +24,11 @@ public class Player {
 
     }
 
+    public Player(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
 
     public int getId() {
         return id;

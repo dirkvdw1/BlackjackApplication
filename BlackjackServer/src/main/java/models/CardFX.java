@@ -67,7 +67,7 @@ public class CardFX extends Parent {
             view.setX(CARD_WIDTH - 32);
             view.setY(CARD_HEIGHT - 32);
 
-            getChildren().addAll(bg, new ImageView(suit.image), view, text1, text2);
+            getChildren().addAll(text1, text2);
         }
 
         @Override

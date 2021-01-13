@@ -54,7 +54,7 @@ public class MultClientServer {
 
                     } catch (IOException ignored) {}
                 }
-            }).start();
+            }).start();             //start client
 
         } catch (IOException e) {
             e.printStackTrace();

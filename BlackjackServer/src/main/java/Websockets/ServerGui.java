@@ -26,7 +26,7 @@ public class ServerGui extends Application {
         Button stopServer = new Button("Stop server");
 
         startServer.setOnAction((event -> {
-            if(!multClientServer.isRunning()){
+            if(!multClientServer.isRunning()){          //disabled als t gestaert is
                 multClientServer.start();
             }
         }));
@@ -49,7 +49,7 @@ public class ServerGui extends Application {
 
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(borderPane, 400, 800));
-        primaryStage.show();
+        primaryStage.show();                //showw server scherm
     }
 
 

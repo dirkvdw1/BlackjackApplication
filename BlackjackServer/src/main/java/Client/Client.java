@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -15,6 +16,7 @@ public class Client implements Runnable {
     private final GameContainer gameContainer;
     private final int port;
     private final String ip;
+    private IblackjackServer iblackjackServer;
 
     private boolean running;
 
@@ -27,6 +29,8 @@ public class Client implements Runnable {
         this.gameContainer = gameContainer;
         this.port = port;
         this.ip = ip;
+
+
     }
 
     /**
@@ -44,8 +48,9 @@ public class Client implements Runnable {
 
             objectInputStream = new ObjectInputStream((s.getInputStream()));
 
+            getRandomTurn();
 
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e ) {
             e.printStackTrace();
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -55,8 +60,10 @@ public class Client implements Runnable {
             });
         }
 
+
         running = true;
         getInput().start();
+        getOutput().start();
 
     }
 
@@ -74,6 +81,27 @@ public class Client implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private Thread getOutput() {
+        return new Thread(() -> {
+            while (running) {
+                try {
+//                    if (!packages.isEmpty()) {
+//                        // writing objects from the queue, removes the last index.
+//                        objectOutputStream.writeObject(packages.remove(packages.size() - 1));
+//                        objectOutputStream.flush();
+                    if(1 ==2 ){
+                        new Exception("test");
+                    }
+//                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    gameContainer.onDisconnect();
+                    return;
+                }
+
+            }
+        });
     }
 
     /**
@@ -112,6 +140,25 @@ public class Client implements Runnable {
             e.printStackTrace();
         }
     }
+    public void getRandomTurn() throws IOException, ClassNotFoundException {
+
+        int amountReceived;
+        int random;
+
+        do {
+            random = new Random().nextInt(10);
+            objectOutputStream.writeObject(String.valueOf(random));
+
+            amountReceived = Integer.parseInt((String) objectInputStream.readObject());
+
+            if (amountReceived < random) {
+                Platform.runLater(() -> this.gameContainer.setYourTurn(true));
+            } else {
+                Platform.runLater(() -> this.gameContainer.setYourTurn(false));
+            }
+        } while (random == amountReceived);
+    }
+
 
     /**
      * This method will send a random number from 0 to 10 to the other client, the other
@@ -137,12 +184,19 @@ public class Client implements Runnable {
         return new Thread(() -> {
             while (running) {
                 try {
-                    Object object = objectInputStream.readObject();
+                   // Object object = objectInputStream.readObject();
+                   List<Object> objects = (List<Object>) objectInputStream.readObject();
+                        String message = (String) objects.get(0);
+                    if (message != null) {
 
+                        switch (message){
+                            case "register":
+                                //IblackjackServer;
 
-                    if (object instanceof String) {
+                            case "test":
 
-                        String message = (String) object;
+                        }
+                        //String message = (String) object;
 
                         if (message.contains("GUESS")) { //message catching for guesses.
 
