@@ -4,29 +4,21 @@ package Client;
 
 
 
+
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
+
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class GameContainer {
 
@@ -45,22 +37,33 @@ public class GameContainer {
     private Font impact;
 
 
+
+//    private Stock deck = new Stock();
+//    private PlayerCards player;
+//    private Dealercards dealer;
+//    private Text message = new Text();
+//    private Logic logic = new Logic();
+//    private SimpleBooleanProperty playable = new SimpleBooleanProperty(false);
+//
+//    private HBox Box2 = new HBox(20);
+//    private HBox Box1 = new HBox(20);
+
+
+
     public GameContainer(Stage primaryStage) {
         this.window = primaryStage;
         this.initVar();
     }
 
-    /**
-     * Call all the initializers.
-     */
-    public void start() {       //start het spel
+
+    public void start() {
+        //start het spel
         this.initWindow();
         this.initStartScreen();
+        this.initHandlers();
     }
 
-    /**
-     * initialising variables.
-     */
+
     public void initVar() {
         this.yourTurn = false;
         this.started = false;
@@ -70,19 +73,12 @@ public class GameContainer {
         this.impact = new Font("Impact", 60);
     }
 
-    /**
-     * init javafx graphicContext and canvas onto the stage.
-     */
     private void initWindow() {
-        this.canvas = new Canvas();
 
-        this.graphicsContext = canvas.getGraphicsContext2D();
-        this.getGraphicsContext().setFont(impact);
+
 
         this.window.setResizable(false);
 
-        this.canvas.widthProperty().bind(this.window.widthProperty());
-        this.canvas.heightProperty().bind(this.window.heightProperty());
 
         BorderPane mainPane = new BorderPane();
         mainPane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -93,44 +89,32 @@ public class GameContainer {
     }
     public void setYourTurn(boolean yourTurn) {
         this.yourTurn = yourTurn;
-
-
         this.points++;
-        this.started = true;
+        this.started = false;
     }
 
-    /**
-     * init screen view for StartScreen.
-     */
     private void initStartScreen() {
-        this.updateGuess("Wachten op andere spelers!");
+       // this.updateGuess("Wachten op andere spelers!");
+        makeButtonStartEnd("Spel starten", Color.GREEN);
     }
+    private void makeButtonStartEnd(String msg, Color color) {
+        Text text = new Text(msg);
+        text.setFont(impact);
+        this.graphicsContext.setFill(color);
+        this.graphicsContext.fillRect(((this.canvas.getWidth() / 2.0) - ((text.getLayoutBounds().getWidth() / 2.0) + 20)),
+                (this.canvas.getHeight() / 2.0) - 55,
+                text.getLayoutBounds().getWidth() + 40,
+                80);
 
-    /**
-     * init the toolbar.
-     */
-
-
-    /**
-     * init the bar to type your guess.
-     */
-    private void initGuessBar() {
-        this.guessWord = "";
-        this.updateGuess("");
-        this.graphicsContext.strokeLine(0, 100, this.canvas.getWidth(), 100);
+        this.graphicsContext.setFill(Color.WHITE);
+        this.graphicsContext.fillText(msg, (this.canvas.getWidth() / 2.0) - (text.getLayoutBounds().getWidth() / 2.0),
+                (this.canvas.getHeight() / 2.0) + 10);
+        this.graphicsContext.setFill(Color.BLACK);
+        this.graphicsContext.strokeRect(((this.canvas.getWidth() / 2.0) - ((text.getLayoutBounds().getWidth() / 2.0) + 20)),
+                (this.canvas.getHeight() / 2.0) - 55,
+                text.getLayoutBounds().getWidth() + 40,
+                80);
     }
-
-    /**
-     * init the callbacks from mouse and key pressed, these callbacks will update
-     * the game.
-     */
-
-
-
-
-    /**
-     * this method will init a thread which will update the timer each second.
-     */
 
     public void setClient(Client client) {
         this.client = client;
@@ -150,7 +134,7 @@ public class GameContainer {
         this.yourTurn = false;
         this.started = false;
 
-        updateGuess("Tegenstander heeft het spel verlaten!");
+        //updateGuess("Tegenstander heeft het spel verlaten!");
     }
 
     public void onServerStop(){
@@ -158,46 +142,16 @@ public class GameContainer {
         this.yourTurn = false;
         this.started = false;
 
-        updateGuess("De server is gestopt!");
+       // updateGuess("De server is gestopt!");
     }
 
 
 
-    /**
-     * This methode will clear the toolbar, it will determine the right coords
-     * to place the text in the middle of the x from canvas.
-     * @param word the current guess.
-     */
-    private void updateGuess(String word) {
-        this.graphicsContext.clearRect(0, 0, canvas.getWidth() - 100, 90);
-        Text guess = new Text(word);
-        guess.setFont(impact);
-        this.getGraphicsContext().fillText(word, (canvas.getWidth() / 2.0) - (guess.getLayoutBounds().getWidth() / 2.0), 80);
-    }
 
 
-    /**
-     * This method is called when the GameTimer is out of seconds.
-     */
-
-    /**
-     * This method generates a button in the center of the canvas.
-     * @param msg message to come with the button.
-     * @param color collor of the button.
-     */
 
 
-    /**
-     * This method will pull a random word from the words json.
-     * @param jsonFileLocation location of the .json.
-     * @return random word to draw.
-     */
-    private String getRandomWord(String jsonFileLocation) {
-        JsonReader reader = Json.createReader(getClass().getResourceAsStream(jsonFileLocation));
-        JsonObject jsonObject = reader.readObject();
-        JsonArray jsonValues = jsonObject.getJsonArray("words");
-        return jsonValues.get(new Random().nextInt(jsonValues.size() - 1)).toString();
-    }
+
     private void initHandlers() {
         canvas.setOnMouseDragged((event -> {
 //            if (yourTurn) {
@@ -237,10 +191,13 @@ public class GameContainer {
                         StartScreen startScreen = new StartScreen();
                         startScreen.setVar(false, "");
                         startScreen.start(window);
-                    } else {
+                    }
+                    else {
                         StartScreen startScreen = new StartScreen();
                         startScreen.setVar(true, this.client.getIp());
                         startScreen.start(window);
+
+                        started = true;
                     }
                 }
             }
@@ -273,7 +230,7 @@ public class GameContainer {
             if (!yourTurn && started) {
                 if (event.getCode() == KeyCode.BACK_SPACE && guessWord.length() != 0) {
                     guessWord = guessWord.substring(0, guessWord.length() - 1);
-                    updateGuess(guessWord);
+                 //   updateGuess(guessWord);
                 } else if (event.getCode() == KeyCode.ENTER && guessWord.length() > 0) {
 
                     this.client.sendGuess(guessWord);
@@ -284,7 +241,7 @@ public class GameContainer {
                     } else {
                         guessWord = event.getText();
                     }
-                    updateGuess(guessWord);
+                  //  updateGuess(guessWord);
                 }
             }
         });

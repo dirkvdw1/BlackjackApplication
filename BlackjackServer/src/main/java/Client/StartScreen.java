@@ -3,6 +3,7 @@ package Client;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -19,6 +20,7 @@ public class StartScreen extends Application {
 
     private boolean replay;
     private String ip;
+    private Login login = new Login();
 
     public void setVar(boolean replay, String ip){
         this.replay = replay;
@@ -31,18 +33,23 @@ public class StartScreen extends Application {
     public void start(Stage primaryStage) {
         if(replay){     //skipt ie in begin
             GameContainer gameContainer = new GameContainer(primaryStage);
-            Client client = new Client(JavaFX.port, ip, gameContainer);         //aan t eind van het spel
+            Client client = new Client(BlackjackClient.port, ip, gameContainer);         //aan t eind van het spel
             gameContainer.setClient(client);
             new Thread(client).start();
             return;
         }
 
         HBox hBox = new HBox();
-        Label ip = new Label("IP:");
-        TextField inputIP = new TextField();
+        HBox hBox2 = new HBox();
+        VBox vBox2 = new VBox();
+        Label username = new Label("Username:");
+        Label password = new Label("Password:");
+        TextField inputUsername = new TextField();
+        TextField inputPassword = new TextField();
 
-        hBox.getChildren().addAll(ip, inputIP);                 //hier moet de inlog pagina
-
+        hBox.getChildren().addAll(username, inputUsername);
+        hBox2.getChildren().addAll(password, inputPassword);  //hier moet de inlog pagina
+        vBox2.getChildren().addAll(hBox,hBox2);
         VBox vBox = new VBox();
 
         javafx.scene.control.Button connectButton = new javafx.scene.control.Button();
@@ -50,13 +57,26 @@ public class StartScreen extends Application {
         connectButton.setText("Play!");
 
         connectButton.setOnAction((event -> {
-            GameContainer gameContainer = new GameContainer(primaryStage);
-            Client client = new Client(BlackjackClient.port, inputIP.getText(), gameContainer);     //Hier start het spel/
-            gameContainer.setClient(client);
-            new Thread(client).start();     //start denk ik     //scherm van t wachten
+            String usernamevalue = inputUsername.getText();
+            String passwordvalue = inputPassword.getText();
+
+            if(login.registerPlayer(usernamevalue,passwordvalue)) {
+
+                GameContainer gameContainer = new GameContainer(primaryStage);
+                Client client = new Client(BlackjackClient.port, "Localhost", gameContainer);     //Hier start het spel/
+                gameContainer.setClient(client);
+                new Thread(client).start(); //start denk ik
+            }
+             else{
+                  Alert alert =  new Alert(Alert.AlertType.INFORMATION);
+                  alert.setTitle("Error");
+                  alert.setHeaderText("Wrong login information");
+                  alert.setContentText("idioot");
+                  alert.showAndWait();
+            }
         }));
 
-        vBox.getChildren().addAll(hBox, connectButton);
+        vBox.getChildren().addAll(vBox2, connectButton);
 
         BorderPane mainPane = new BorderPane();
 

@@ -5,10 +5,20 @@ import models.PlayerCards;
 import java.util.List;
 
 public class Player {
+    public int id;
     public String Name;
     public String password;
     public int chips;
     public List<PlayerCards> hand;
+
+     public Player(int id,String name,String password){
+        this.id = id;
+        this.Name = name;
+        this.password = password;
+    }
+    public Player(){
+
+    }
 
 
 
